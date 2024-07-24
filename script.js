@@ -17,8 +17,18 @@ for (let i = 0; i < gameDimension*gameDimension; i++){
 }
 
 let playBtn = document.getElementById('playBtn');
-
-playBtn.addEventListener('click', function(){setInterval(executeTimeStep(), 1000);});
+var timeStepInterval;
+playBtn.addEventListener('click', function(){
+    if(this.classList.contains("active")){
+        clearInterval(timeStepInterval);
+        this.classList.remove("active");
+        this.innerText="Play";
+    } else {
+        timeStepInterval = setInterval(executeTimeStep, 100);
+        this.classList.add("active");
+        this.innerText="Pause";
+    }
+});
 
 function executeTimeStep(){
     let cells = Array.from(document.getElementsByClassName('cell'));
